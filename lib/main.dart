@@ -16,7 +16,7 @@ void main(List<String> args) {
 }
 
 class MyApp extends StatelessWidget {
-  List<Widget> _pages = [
+  final List<Widget> _pages = [
     // StoriesScreen(),
     ChatsScreen(),
     SettingsScreen()
@@ -51,8 +51,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
