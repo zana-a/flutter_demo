@@ -1,5 +1,6 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app/util/Date.dart';
 
 class ConversationBubble extends StatelessWidget {
@@ -7,26 +8,51 @@ class ConversationBubble extends StatelessWidget {
   final Date date;
   final bool isRead;
   final bool isInBound;
+  final bool isDateToken;
 
-  ConversationBubble({this.message, this.date, this.isRead, this.isInBound});
+  ConversationBubble(
+      {this.message,
+      this.date,
+      this.isRead = false,
+      this.isInBound = false,
+      this.isDateToken = false});
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      alignment: isInBound ? WrapAlignment.start : WrapAlignment.end,
+      alignment: isDateToken
+          ? isInBound
+              ? WrapAlignment.start
+              : WrapAlignment.end
+          : WrapAlignment.center,
       children: [
-        isInBound
-            ? Container(
-                padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 4,
+        isDateToken
+            ? isInBound
+                ? Container(
+                    padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width / 4,
+                    ),
+                    child: createBubble(inbound: this.isInBound),
+                  )
+                : Container(
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width / 4,
+                    ),
+                    child: createBubble(inbound: this.isInBound),
+                  )
+            : Bubble(
+                margin: BubbleEdges.symmetric(vertical: 16),
+                shadowColor: Colors.transparent,
+                padding: BubbleEdges.symmetric(vertical: 6, horizontal: 4),
+                color: CupertinoColors.label.withAlpha(150),
+                child: Text(
+                  this.date.date,
+                  style: TextStyle(
+                    fontSize: 14,
+                    height: 1,
+                    color: CupertinoColors.white,
+                  ),
                 ),
-                child: createBubble(inbound: this.isInBound),
-              )
-            : Container(
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width / 4,
-                ),
-                child: createBubble(inbound: this.isInBound),
               ),
       ],
     );
@@ -56,7 +82,7 @@ class ConversationBubble extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 8.0),
+            padding: EdgeInsets.only(top: 4.0),
             child: Text(
               this.date.date,
               textAlign: TextAlign.left,

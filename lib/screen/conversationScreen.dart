@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data/messages.dart';
 import 'package:flutter_app/screen/profileScreen.dart';
+import 'package:flutter_app/widgets/conversationBubble.dart';
 
 class ConversationScreen extends StatelessWidget {
   final String name;
@@ -40,17 +42,20 @@ class ConversationScreen extends StatelessWidget {
             flex: 1,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8),
-              // child: ListView.builder(
-              //   itemCount: this.messages.length,
-              //   itemBuilder: (context, index) {
-              //     return ConversationBubble(
-              //       message: this.messages[index]['message'],
-              //       date: this.messages[index]['date'],
-              //       isRead: this.messages[index]['isRead'],
-              //       isInBound: this.messages[index]['isInBound'],
-              //     );
-              //   },
-              // ),
+              child: ListView.builder(
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  return ConversationBubble(
+                    message: messages[index]['message'],
+                    date: messages[index]['date'],
+                    isRead: messages[index]['isRead'] == null ? false : true,
+                    isInBound:
+                        messages[index]['isInBound'] == null ? false : true,
+                    isDateToken:
+                        messages[index]['isInBound'] == null ? false : true,
+                  );
+                },
+              ),
             ),
           ),
           Container(
@@ -65,7 +70,7 @@ class ConversationScreen extends StatelessWidget {
             ),
             child: SizedBox(
               child: Container(
-                color: CupertinoColors.white,
+                color: CupertinoColors.secondarySystemBackground,
                 padding: EdgeInsets.only(left: 16, right: 4),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -91,7 +96,7 @@ class ConversationScreen extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
