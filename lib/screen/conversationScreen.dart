@@ -6,23 +6,68 @@ import 'package:flutter_app/widgets/conversationBubble.dart';
 
 class ConversationScreen extends StatelessWidget {
   final String name;
+  final bool isTyping;
 
-  ConversationScreen({this.name});
+  ConversationScreen({this.name, this.isTyping = false});
 
   Widget navigator({context: BuildContext}) {
     return CupertinoNavigationBar(
       backgroundColor: CupertinoColors.white,
-      middle: Text(this.name),
-      trailing: GestureDetector(
-        onTap: () {
-          Navigator.push(context, CupertinoPageRoute(builder: (context) {
-            return ProfileScreen(name: this.name);
-          }));
-        },
-        child: CircleAvatar(
-          radius: 16,
-          backgroundColor: CupertinoColors.systemGrey,
-        ),
+      trailing: Stack(
+        alignment: Alignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 18),
+            child: Expanded(
+              child: isTyping
+                  ? Text(
+                      'is typing ...',
+                      style: TextStyle(
+                        color: CupertinoColors.link,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        this.name,
+                        style: TextStyle(
+                          color: CupertinoColors.label,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CupertinoButton(
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.zero,
+                child: Icon(CupertinoIcons.phone),
+                onPressed: () {},
+              ),
+              CupertinoButton(
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) {
+                    return ProfileScreen(name: this.name);
+                  }));
+                },
+                child: CircleAvatar(
+                  radius: 16,
+                  backgroundColor: CupertinoColors.systemGrey,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -70,27 +115,59 @@ class ConversationScreen extends StatelessWidget {
             ),
             child: SizedBox(
               child: Container(
-                color: CupertinoColors.secondarySystemBackground,
-                padding: EdgeInsets.only(left: 16, right: 4),
+                color: CupertinoColors.white,
+                // padding: EdgeInsets.only(left: 4, right: 4),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Center(
+                          heightFactor: 2.1,
+                          child: Icon(CupertinoIcons.plus),
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 8),
                         child: CupertinoTextField(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.elliptical(8, 8),
+                            ),
+                            border: Border.all(
+                              color: CupertinoColors.systemGrey3,
+                            ),
+                          ),
                           minLines: 1,
                           maxLines: 5,
                           onEditingComplete: () {},
                         ),
                       ),
                     ),
-                    CupertinoButton(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.zero,
-                      onPressed: () {},
-                      child: Icon(CupertinoIcons.arrowtriangle_right_fill),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.only(left: 16, right: 8),
+                        child: Center(
+                          heightFactor: 2.1,
+                          child: Icon(CupertinoIcons.camera),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Center(
+                          heightFactor: 2.1,
+                          child: Icon(CupertinoIcons.arrowtriangle_right_fill),
+                        ),
+                      ),
                     ),
                   ],
                 ),

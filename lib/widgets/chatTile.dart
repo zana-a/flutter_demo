@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screen/conversationScreen.dart';
+import 'package:flutter_app/util/Date.dart';
 
 class ChatTile extends StatelessWidget {
-
   final String name;
-  final String text;
-  final DateTime date;
+  final String message;
+  final Date date;
   final int counter;
 
-  ChatTile({ String key,
+  ChatTile({
+    String key,
     this.name,
-    this.text,
+    this.message,
     this.date,
     this.counter,
-  }): super(key: Key(key));
+  }) : super(key: Key(key));
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,10 @@ class ChatTile extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(16),
           alignment: Alignment.centerRight,
-          child: Icon(CupertinoIcons.archivebox, color: CupertinoColors.white,),
+          child: Icon(
+            CupertinoIcons.archivebox,
+            color: CupertinoColors.white,
+          ),
         ),
       ),
       key: key,
@@ -39,8 +43,10 @@ class ChatTile extends StatelessWidget {
               splashColor: CupertinoColors.lightBackgroundGray,
               highlightColor: CupertinoColors.extraLightBackgroundGray,
               onTap: () {
-                Navigator.push(context, CupertinoPageRoute(builder: (context){
-                  return ConversationScreen(name: this.name,);
+                Navigator.push(context, CupertinoPageRoute(builder: (context) {
+                  return ConversationScreen(
+                    name: this.name,
+                  );
                 }));
               },
               child: Container(
@@ -67,7 +73,7 @@ class ChatTile extends StatelessWidget {
                         direction: Axis.vertical,
                         children: [
                           Text(
-                            name,
+                            this.name,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -77,7 +83,7 @@ class ChatTile extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(top: 4),
                             child: Text(
-                              text,
+                              this.message,
                               maxLines: 2,
                               style: TextStyle(
                                 color: CupertinoColors.label,
@@ -90,14 +96,8 @@ class ChatTile extends StatelessWidget {
                     Expanded(
                       flex: 0,
                       child: Text(
-                          date.day.toString() +
-                              '/' +
-                              date.month.toString() +
-                              '/' +
-                              date.year.toString(),
-                        style: TextStyle(
-                          fontSize: 12
-                        ),
+                        this.date.date,
+                        style: TextStyle(fontSize: 12),
                       ),
                     ),
                   ],
