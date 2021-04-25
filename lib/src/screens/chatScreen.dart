@@ -117,9 +117,22 @@ class MessageTile extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 0,
-                    child: CircleAvatar(
-                      radius: 24,
-                      backgroundColor: Colors.red,
+                    child: Stack(
+                      alignment: Alignment.bottomLeft,
+                      children: [
+                        CircleAvatar(
+                          radius: 24,
+                          backgroundColor: Colors.red,
+                        ),
+                        CircleAvatar(
+                          radius: 6,
+                          backgroundColor: CupertinoColors.white,
+                          child: CircleAvatar(
+                            radius: 4,
+                            backgroundColor: CupertinoColors.activeGreen,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Expanded(
