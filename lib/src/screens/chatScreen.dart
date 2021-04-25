@@ -144,61 +144,78 @@ class MessageTile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Zana',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  'Zana Ahmad',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 0,
+                                child: Text(
+                                  '3m',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: 2,
                           ),
-                          RichText(
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            text: TextSpan(
-                              style: Theme.of(context).textTheme.bodyText2,
-                              children: [
-                                WidgetSpan(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      right: 2,
-                                    ),
-                                    child: Icon(
-                                      Icons.done_rounded,
-                                      size: 18,
-                                    ),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: RichText(
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  text: TextSpan(
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                    children: [
+                                      WidgetSpan(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                            right: 2,
+                                          ),
+                                          child: Icon(
+                                            Icons.done_rounded,
+                                            size: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            'By Michaelas kdjals jdlajasldjl alksdjlk asjdlj alsjdlkaj sljdlj\n',
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                TextSpan(
-                                  text:
-                                      'By Michaelas kdjals jdlajasldjl alksdjlk asjdlj alsjdlkaj sljdlj\n',
+                              ),
+                              Expanded(
+                                flex: 0,
+                                child: CircleAvatar(
+                                  backgroundColor: CupertinoColors.activeBlue,
+                                  radius: 10,
+                                  child: Text('1'),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 0,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('today'),
-                        CircleAvatar(
-                          backgroundColor: CupertinoColors.activeGreen,
-                          radius: 10,
-                          child: Text(
-                            '1',
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ],
