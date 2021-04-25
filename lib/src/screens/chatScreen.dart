@@ -100,158 +100,182 @@ class ChatScreen extends StatelessWidget {
 }
 
 class MessageTile extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: Key('a'),
-      direction: DismissDirection.endToStart,
-      background: Container(
-        color: CupertinoColors.activeBlue,
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: GestureDetector(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 0,
-                    child: Stack(
-                      alignment: Alignment.bottomLeft,
-                      children: [
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundColor: Colors.red,
-                        ),
-                        CircleAvatar(
-                          radius: 6,
-                          backgroundColor: CupertinoColors.white,
-                          child: CircleAvatar(
-                            radius: 4,
-                            backgroundColor: CupertinoColors.activeGreen,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return Material(
+      color: CupertinoColors.white,
+      child: InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: CupertinoColors.systemGrey6,
+        onTap: () {},
+        child: Dismissible(
+          key: Key('a'),
+          direction: DismissDirection.endToStart,
+          background: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            alignment: Alignment.centerRight,
+            color: CupertinoColors.activeBlue,
+            child: CircleAvatar(
+              backgroundColor: Colors.blue.shade800,
+              child: Icon(
+                CupertinoIcons.archivebox,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 0,
+                      child: Stack(
+                        alignment: Alignment.bottomLeft,
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Zana Ahmad',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                  ),
-                                ),
+                          Material(
+                            shape: CircleBorder(),
+                            clipBehavior: Clip.hardEdge,
+                            color: CupertinoColors.systemGrey5,
+                            child: Ink.image(
+                              image: NetworkImage('https://picsum.photos/240'),
+                              fit: BoxFit.cover,
+                              width: 48,
+                              height: 48,
+                              child: InkWell(
+                                onTap: () {},
                               ),
-                              Expanded(
-                                flex: 0,
-                                child: Text(
-                                  '3m',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: RichText(
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  text: TextSpan(
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2,
-                                    children: [
-                                      WidgetSpan(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                            right: 2,
-                                          ),
-                                          child: Icon(
-                                            Icons.done_rounded,
-                                            size: 18,
-                                          ),
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            'By Michaelas kdjals jdlajasldjl alksdjlk asjdlj alsjdlkaj sljdlj\n',
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 0,
-                                child: CircleAvatar(
-                                  backgroundColor: CupertinoColors.activeBlue,
-                                  radius: 10,
-                                  child: Text('1'),
-                                ),
-                              ),
-                            ],
+                          CircleAvatar(
+                            radius: 6,
+                            backgroundColor: CupertinoColors.white,
+                            child: CircleAvatar(
+                              radius: 4,
+                              backgroundColor: CupertinoColors.activeGreen,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    'John Appleseed',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: CupertinoColors.black,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 0,
+                                  child: Text(
+                                    'Yesterday',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: CupertinoColors.secondaryLabel,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: RichText(
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                        color: CupertinoColors.inactiveGray,
+                                      ),
+                                      children: [
+                                        WidgetSpan(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              right: 2,
+                                            ),
+                                            child: Icon(
+                                              Icons.done_all_rounded,
+                                              size: 18,
+                                            ),
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              'Hello, World, I am Zana and I like to write things that are not that meaningful' +
+                                                  '\n',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 0,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: CupertinoColors.systemGrey5,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    padding: EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
+                                      top: 4,
+                                      bottom: 4,
+                                    ),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        '1',
+                                        style: TextStyle(
+                                          color: CupertinoColors.secondaryLabel,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-          Divider(
-            height: 1,
-            indent: 74,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class MessageTileMaterial extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Dismissible(
-        key: Key('a'),
-        child: Material(
-          color: Colors.transparent,
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors.orange,
-            ),
-            trailing: Text('Today'),
-            onTap: () {},
-            title: Text('Zana'),
-            subtitle: Text(
-              'Hello, World. I am Zana and I like to program things. What do you think? ',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+              Divider(
+                height: 1,
+                indent: 74,
+                color: CupertinoColors.opaqueSeparator,
+              )
+            ],
           ),
         ),
       ),
