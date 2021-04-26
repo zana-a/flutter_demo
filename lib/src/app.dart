@@ -1,14 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/screens/chatScreen.dart';
-import 'package:flutter_app/src/screens/settingsScreen.dart';
+import 'package:flutter_app/src/screens/chats/chatsScreen.dart';
+import 'package:flutter_app/src/screens/settings/settingsScreen.dart';
 
-class App extends StatefulWidget {
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
+class App extends StatelessWidget {
   final List<Widget> _pages = [
     ChatScreen(
       title: 'Chats',

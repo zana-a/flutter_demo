@@ -1,0 +1,4 @@
+enum Presence {
+  Online,
+  None,
+}
