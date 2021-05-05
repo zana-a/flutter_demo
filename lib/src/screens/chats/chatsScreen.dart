@@ -33,52 +33,123 @@ class ChatScreen extends StatelessWidget {
                 right: 16,
                 top: 16,
               ),
-              child: CupertinoSearchTextField(),
+              // child: CupertinoSearchTextField(),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 0,
+                    child: navbarButton(
+                      child: Container(
+                        padding: EdgeInsets.only(right: 8),
+                        alignment: Alignment.centerLeft,
+                        child: navbarButton(
+                          child: Icon(CupertinoIcons.archivebox),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Expanded(
+                  //   flex: 1,
+                  //   child: navbarButton(
+                  //     child: Container(
+                  //       alignment: Alignment.centerRight,
+                  //       child: navbarButton(
+                  //         child: Icon(CupertinoIcons.archivebox),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  Expanded(
+                    flex: 1,
+                    child: CupertinoSearchTextField(),
+                  ),
+                ],
+              ),
             ),
             trailing: navbarButton(
-              child: Icon(CupertinoIcons.plus_app),
+              child: Icon(CupertinoIcons.square_pencil),
             ),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
               <Widget>[
-                Container(
-                  color: MediaQuery.of(context).platformBrightness ==
-                          Brightness.light
-                      ? CupertinoColors.white
-                      : CupertinoColors.darkBackgroundGray,
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: navbarButton(
-                            child: Icon(CupertinoIcons.archivebox),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          alignment: Alignment.topRight,
-                          child: navbarButton(
-                            child: Text('New Group'),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Divider(
-                  color: CupertinoColors.systemGrey2,
-                  height: 1,
-                ),
+                // Container(
+                //   color: MediaQuery.of(context).platformBrightness ==
+                //           Brightness.light
+                //       ? CupertinoColors.white
+                //       : CupertinoColors.darkBackgroundGray,
+                //   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                //   child: Row(
+                //     children: [
+                //       Expanded(
+                //         flex: 1,
+                //         child: Container(
+                //           alignment: Alignment.topLeft,
+                //           child: navbarButton(
+                //             child: Icon(CupertinoIcons.archivebox),
+                //           ),
+                //         ),
+                //       ),
+                //       Expanded(
+                //         flex: 1,
+                //         child: Container(
+                //           alignment: Alignment.topRight,
+                //           child: navbarButton(
+                //             child: Text('New Group'),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // Divider(
+                //   color: CupertinoColors.systemGrey2,
+                //   height: 1,
+                // ),
                 // MessageTileMaterial(),
               ],
             ),
           ),
+          // SliverToBoxAdapter(
+          //   child: Container(
+          //     margin: EdgeInsets.symmetric(vertical: 16),
+          //     height: 78,
+          //     child: ListView.builder(
+          //       scrollDirection: Axis.horizontal,
+          //       itemCount: 10,
+          //       itemBuilder: (BuildContext context, int index) {
+          //         return Container(
+          //           margin: index == 0
+          //               ? EdgeInsets.only(left: 16, right: 8)
+          //               : EdgeInsets.symmetric(horizontal: 8),
+          //           width: 78,
+          //           child: Material(
+          //             shape: CircleBorder(),
+          //             clipBehavior: Clip.hardEdge,
+          //             color: CupertinoColors.systemGrey5,
+          //             child: Ink.image(
+          //               image: NetworkImage('https://picsum.photos/128'),
+          //               fit: BoxFit.cover,
+          //               width: 48,
+          //               height: 48,
+          //               child: InkWell(
+          //                 onTap: () {},
+          //               ),
+          //             ),
+          //           ),
+          //         );
+          //       },
+          //     ),
+          //   ),
+          // ),
+          // SliverList(
+          //   delegate: SliverChildListDelegate([
+          //     Divider(
+          //       color: CupertinoColors.systemGrey2,
+          //       height: 1,
+          //     ),
+          //   ]),
+          // ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
@@ -92,7 +163,7 @@ class ChatScreen extends StatelessWidget {
                   messageStatus: Status.Seen,
                 );
               },
-              childCount: 1,
+              childCount: 10,
             ),
           ),
         ],

@@ -12,6 +12,7 @@ class MessageTile extends StatelessWidget {
   final Presence presence;
   final Status messageStatus;
   final ImageProvider profileImage;
+  final int counts;
 
   MessageTile({
     @required this.key,
@@ -21,6 +22,7 @@ class MessageTile extends StatelessWidget {
     @required this.presence,
     @required this.messageStatus,
     @required this.profileImage,
+    @required this.counts,
   });
 
   Widget dismissibleBackground() {
@@ -48,10 +50,29 @@ class MessageTile extends StatelessWidget {
       child: Ink.image(
         image: this.profileImage,
         fit: BoxFit.cover,
-        width: 48,
-        height: 48,
+        width: 54,
+        height: 54,
         child: InkWell(
           onTap: () {},
+          onLongPress: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 64,
+                        backgroundImage: profileImage,
+                      ),
+                      Text(this.name)
+                    ],
+                  ),
+                );
+              },
+            );
+          },
         ),
       ),
     );
@@ -67,6 +88,7 @@ class MessageTile extends StatelessWidget {
         style: TextStyle(
           color: CupertinoColors.black,
           fontSize: 16,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
@@ -76,7 +98,7 @@ class MessageTile extends StatelessWidget {
     return Expanded(
       flex: 0,
       child: Text(
-        DateFormat.EEEE().format(this.date),
+        DateFormat.EEEE().format(this.date).substring(0, 3),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(
@@ -88,16 +110,18 @@ class MessageTile extends StatelessWidget {
   }
 
   Widget counter() {
-    return Container(
-      alignment: Alignment.center,
-      child: Text(
-        '1',
-        style: TextStyle(
-          color: CupertinoColors.white,
-          fontSize: 12,
-        ),
-      ),
-    );
+    return this.counts > 0
+        ? Container(
+            alignment: Alignment.center,
+            child: Text(
+              this.counts.toString(),
+              style: TextStyle(
+                color: CupertinoColors.white,
+                fontSize: 12,
+              ),
+            ),
+          )
+        : null;
   }
 
   Widget profileMessage() {
@@ -106,17 +130,20 @@ class MessageTile extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       text: TextSpan(
         style: TextStyle(
-          color: CupertinoColors.inactiveGray,
+          color: Colors.grey[700],
+          fontSize: 16,
         ),
         children: [
           WidgetSpan(
             child: Padding(
               padding: EdgeInsets.only(
-                right: 2,
+                // right: 2,
+                right: 0,
               ),
               child: Icon(
                 Icons.done_all_rounded,
-                size: 18,
+                // size: 18,
+                size: 0,
               ),
             ),
           ),
@@ -137,56 +164,81 @@ class MessageTile extends StatelessWidget {
         splashColor: CupertinoColors.systemGrey6,
         onTap: () {},
         onLongPress: () {
-          showCupertinoModalPopup(
-            context: context,
-            builder: (BuildContext context) => CupertinoActionSheet(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 64,
-                    height: 64,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      child: ClipOval(
-                        child: Image(
-                          image: this.profileImage,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    this.name,
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-              actions: [
-                CupertinoActionSheetAction(
-                  onPressed: () {},
-                  child: Text('Chat'),
-                ),
-                CupertinoActionSheetAction(
-                  child: Text('View Profile'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(builder: (BuildContext context) {
-                        return CupertinoPageScaffold(child: Text('Replace me'));
-                      }),
-                    );
-                  },
-                )
-              ],
-            ),
-          );
+          //   showCupertinoModalPopup(
+          //     context: context,
+          //     builder: (BuildContext context) => CupertinoActionSheet(
+          //       title: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.center,
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           SizedBox(
+          //             width: 64,
+          //             height: 64,
+          //             child: CircleAvatar(
+          //               backgroundColor: Colors.transparent,
+          //               child: ClipOval(
+          //                 child: Image(
+          //                   image: this.profileImage,
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //           SizedBox(
+          //             height: 16,
+          //           ),
+          //           Text(
+          //             this.name,
+          //             style: TextStyle(
+          //               fontSize: 16,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //       message: Row(
+          //         crossAxisAlignment: CrossAxisAlignment.center,
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           CupertinoButton(
+          //             onPressed: () {},
+          //             padding: EdgeInsets.zero,
+          //             child: Icon(CupertinoIcons.phone),
+          //           ),
+          //           CupertinoButton(
+          //             onPressed: () {},
+          //             padding: EdgeInsets.zero,
+          //             child: Icon(CupertinoIcons.chat_bubble),
+          //           ),
+          //         ],
+          //       ),
+          //       actions: [
+          //         CupertinoActionSheetAction(
+          //           onPressed: () {},
+          //           child: Text(
+          //             'Archive',
+          //           ),
+          //         ),
+          //         CupertinoActionSheetAction(
+          //           onPressed: () {},
+          //           child: Text(
+          //             'Delete',
+          //             style: TextStyle(color: CupertinoColors.destructiveRed),
+          //           ),
+          //         ),
+          //         CupertinoActionSheetAction(
+          //           child: Text('View Profile'),
+          //           onPressed: () {
+          //             Navigator.pop(context);
+          //             Navigator.push(
+          //               context,
+          //               CupertinoPageRoute(builder: (BuildContext context) {
+          //                 return CupertinoPageScaffold(child: Text('Replace me'));
+          //               }),
+          //             );
+          //           },
+          //         )
+          //       ],
+          //     ),
+          //   );
         },
         child: Dismissible(
           key: this.key,
@@ -197,7 +249,7 @@ class MessageTile extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                 child: Row(
                   children: [
                     Expanded(
@@ -243,22 +295,27 @@ class MessageTile extends StatelessWidget {
                                   flex: 1,
                                   child: profileMessage(),
                                 ),
-                                Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: CupertinoColors.activeGreen,
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                    padding: EdgeInsets.only(
-                                      left: 8,
-                                      right: 8,
-                                      top: 4,
-                                      bottom: 4,
-                                    ),
-                                    child: counter(),
-                                  ),
-                                ),
+                                this.counts > 0
+                                    ? Expanded(
+                                        flex: 0,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: CupertinoColors.activeGreen,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                          padding: EdgeInsets.only(
+                                            left: 8,
+                                            right: 8,
+                                            top: 4,
+                                            bottom: 4,
+                                          ),
+                                          child: counter(),
+                                        ),
+                                      )
+                                    : Container(
+                                        width: double.minPositive,
+                                      ),
                               ],
                             ),
                           ],
@@ -268,11 +325,11 @@ class MessageTile extends StatelessWidget {
                   ],
                 ),
               ),
-              Divider(
-                height: 1,
-                indent: 74,
-                color: CupertinoColors.opaqueSeparator,
-              )
+              // Divider(
+              //   height: 1,
+              //   // indent: 74,
+              //   color: Colors.grey[300],
+              // )
             ],
           ),
         ),
