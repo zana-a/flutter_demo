@@ -1,4 +1,6 @@
+import 'package:bubble/bubble.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/widgets/chats/tile/presence.dart';
 import 'package:flutter_app/src/widgets/chats/tile/status.dart';
@@ -162,7 +164,11 @@ class MessageTile extends StatelessWidget {
       child: InkWell(
         highlightColor: Colors.transparent,
         splashColor: CupertinoColors.systemGrey6,
-        onTap: () {},
+        onTap: () {
+          return Navigator.push(context, CupertinoPageRoute(builder: (context) {
+            return MessagesPage();
+          }));
+        },
         onLongPress: () {
           //   showCupertinoModalPopup(
           //     context: context,
@@ -249,7 +255,7 @@ class MessageTile extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 child: Row(
                   children: [
                     Expanded(
@@ -259,10 +265,10 @@ class MessageTile extends StatelessWidget {
                         children: [
                           profile(context: context),
                           CircleAvatar(
-                            radius: 6,
+                            radius: 8,
                             backgroundColor: CupertinoColors.white,
                             child: CircleAvatar(
-                              radius: 4,
+                              radius: 6,
                               backgroundColor: CupertinoColors.activeGreen,
                             ),
                           ),
@@ -337,3 +343,193 @@ class MessageTile extends StatelessWidget {
     );
   }
 }
+
+class MessagesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        backgroundColor: Colors.white,
+        padding: EdgeInsetsDirectional.only(start: 8, end: 8),
+        automaticallyImplyLeading: false,
+        automaticallyImplyMiddle: false,
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          minSize: double.minPositive,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Icon(CupertinoIcons.back),
+        ),
+        middle: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // CupertinoButton(
+            //   padding: EdgeInsets.zero,
+            //   minSize: double.minPositive,
+            //   onPressed: () {
+            //     Navigator.pop(context);
+            //   },
+            //   child: Icon(CupertinoIcons.back),
+            // ),
+            Container(
+              padding: EdgeInsets.only(right: 8),
+              child: CircleAvatar(
+                radius: 16,
+                backgroundColor: Colors.orange,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: Text(
+                    'Zana',
+                    style: TextStyle(
+                      height: 1,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    'Last Seen 2pm',
+                    style: TextStyle(
+                      height: 1,
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        trailing: CupertinoButton(
+          padding: EdgeInsets.zero,
+          minSize: double.minPositive,
+          onPressed: () {},
+          child: Icon(CupertinoIcons.phone),
+        ),
+      ),
+      child: GestureDetector(
+        onTap: () {
+          return FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage("https://picsum.photos/760/1200"),
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+            ),
+          ),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 4),
+            child: ListView.builder(
+              padding: EdgeInsetsDirectional.only(
+                end: MediaQuery.of(context).size.width / 4,
+              ),
+              itemBuilder: (context, index) {
+                return Wrap(
+                  children: [
+                    Bubble(
+                      showNip: true,
+                      nip: BubbleNip.leftTop,
+                      nipWidth: 4,
+                      margin: BubbleEdges.only(bottom: 6),
+                      style: BubbleStyle(
+                        borderWidth: 0.5,
+                        borderColor: Colors.grey[200],
+                      ),
+                      padding: BubbleEdges.only(
+                        left: 8,
+                        right: 8,
+                        bottom: 2,
+                        top: 6,
+                      ),
+                      child: Wrap(
+                        alignment: WrapAlignment.end,
+                        crossAxisAlignment: WrapCrossAlignment.end,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              'Hi. It is nice to meet you.'.trim(),
+                              style: TextStyle(
+                                fontSize: 16,
+                                height: 1.2,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: 0,
+                              bottom: 2,
+                              right: 0,
+                              left: 6,
+                            ),
+                            child: Text(
+                              DateFormat.jm().format(DateTime.now()),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[500],
+                                height: 1,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+              itemCount: 1,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ListView.builder(
+//     padding: EdgeInsets.only(bottom: 56),
+//     itemBuilder: (context, index) {
+//       return Wrap(
+//         children: [
+//           Bubble(
+//             showNip: true,
+//             nip: BubbleNip.leftTop,
+//             nipWidth: 4,
+//             margin: BubbleEdges.only(bottom: 4),
+//             style: BubbleStyle(
+//               borderWidth: 0.5,
+//               borderColor: Colors.grey[200],
+//             ),
+//             child: Text('Hello'),
+//           ),
+//         ],
+//       );
+//     },
+//     itemCount: 100,
+//   ),
+//   Container(
+//     decoration: BoxDecoration(
+//       color: Colors.white,
+//       border: Border(
+//         top: BorderSide(
+//           width: 1,
+//           color: Colors.grey[300],
+//         ),
+//       ),
+//     ),
+//     padding: EdgeInsets.all(8),
+//     child: CupertinoTextField(
+//       maxLines: 4,
+//       minLines: 1,
+//     ),
+//   ),
+// ],

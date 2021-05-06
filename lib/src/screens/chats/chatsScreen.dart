@@ -12,161 +12,42 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor:
-          MediaQuery.of(context).platformBrightness == Brightness.light
-              ? CupertinoColors.white
-              : CupertinoColors.darkBackgroundGray,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          CupertinoSliverNavigationBar(
-            middle: Text(this.title),
-            stretch: true,
-            backgroundColor:
-                MediaQuery.of(context).platformBrightness == Brightness.light
-                    ? null
-                    : CupertinoColors.darkBackgroundGray,
-            leading: navbarButton(
-              child: Text('Edit'),
-            ),
-            largeTitle: Container(
-              padding: EdgeInsets.only(
-                right: 16,
-                top: 16,
-              ),
-              // child: CupertinoSearchTextField(),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 0,
-                    child: navbarButton(
-                      child: Container(
-                        padding: EdgeInsets.only(right: 8),
-                        alignment: Alignment.centerLeft,
-                        child: navbarButton(
-                          child: Icon(CupertinoIcons.archivebox),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Expanded(
-                  //   flex: 1,
-                  //   child: navbarButton(
-                  //     child: Container(
-                  //       alignment: Alignment.centerRight,
-                  //       child: navbarButton(
-                  //         child: Icon(CupertinoIcons.archivebox),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  Expanded(
-                    flex: 1,
-                    child: CupertinoSearchTextField(),
-                  ),
-                ],
-              ),
-            ),
-            trailing: navbarButton(
-              child: Icon(CupertinoIcons.square_pencil),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              <Widget>[
-                // Container(
-                //   color: MediaQuery.of(context).platformBrightness ==
-                //           Brightness.light
-                //       ? CupertinoColors.white
-                //       : CupertinoColors.darkBackgroundGray,
-                //   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                //   child: Row(
-                //     children: [
-                //       Expanded(
-                //         flex: 1,
-                //         child: Container(
-                //           alignment: Alignment.topLeft,
-                //           child: navbarButton(
-                //             child: Icon(CupertinoIcons.archivebox),
-                //           ),
-                //         ),
-                //       ),
-                //       Expanded(
-                //         flex: 1,
-                //         child: Container(
-                //           alignment: Alignment.topRight,
-                //           child: navbarButton(
-                //             child: Text('New Group'),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // Divider(
-                //   color: CupertinoColors.systemGrey2,
-                //   height: 1,
-                // ),
-                // MessageTileMaterial(),
-              ],
-            ),
-          ),
-          // SliverToBoxAdapter(
-          //   child: Container(
-          //     margin: EdgeInsets.symmetric(vertical: 16),
-          //     height: 78,
-          //     child: ListView.builder(
-          //       scrollDirection: Axis.horizontal,
-          //       itemCount: 10,
-          //       itemBuilder: (BuildContext context, int index) {
-          //         return Container(
-          //           margin: index == 0
-          //               ? EdgeInsets.only(left: 16, right: 8)
-          //               : EdgeInsets.symmetric(horizontal: 8),
-          //           width: 78,
-          //           child: Material(
-          //             shape: CircleBorder(),
-          //             clipBehavior: Clip.hardEdge,
-          //             color: CupertinoColors.systemGrey5,
-          //             child: Ink.image(
-          //               image: NetworkImage('https://picsum.photos/128'),
-          //               fit: BoxFit.cover,
-          //               width: 48,
-          //               height: 48,
-          //               child: InkWell(
-          //                 onTap: () {},
-          //               ),
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //   ),
-          // ),
-          // SliverList(
-          //   delegate: SliverChildListDelegate([
-          //     Divider(
-          //       color: CupertinoColors.systemGrey2,
-          //       height: 1,
-          //     ),
-          //   ]),
-          // ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return MessageTile(
-                  key: Key(''),
-                  name: 'Zana Ahmad',
-                  message: 'Hello, World!',
-                  date: DateTime.parse('2021-04-26 20:21:00.201'),
-                  presence: Presence.Online,
-                  profileImage: NetworkImage('https://picsum.photos/64'),
-                  messageStatus: Status.Seen,
-                );
-              },
-              childCount: 10,
-            ),
-          ),
-        ],
+      navigationBar: CupertinoNavigationBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        automaticallyImplyMiddle: false,
+        transitionBetweenRoutes: false,
+        leading: navbarButton(
+          child: Text('Edit'),
+        ),
+        middle: Text(title),
+        trailing: navbarButton(
+          child: Icon(CupertinoIcons.add_circled),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      child: ListView.separated(
+        itemBuilder: (context, i) {
+          return MessageTile(
+            key: Key(''),
+            name: 'Zana',
+            message: 'Hello There!',
+            date: DateTime.now(),
+            presence: Presence.None,
+            messageStatus: Status.Delivered,
+            profileImage: NetworkImage('https://picsum.photos/200'),
+            counts: 12,
+          );
+        },
+        itemCount: 20,
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider(
+            height: 0,
+            thickness: 0.5,
+            color: Colors.grey[300],
+            indent: 54 + 16.0,
+          );
+        },
       ),
     );
   }
@@ -180,3 +61,31 @@ class ChatScreen extends StatelessWidget {
     );
   }
 }
+
+// ListView.separated(
+// physics: Theme.of(context).platform == TargetPlatform.iOS
+//     ? BouncingScrollPhysics()
+//     : ClampingScrollPhysics(),
+//     itemBuilder: (context, i) {
+//       return MessageTile(
+//         key: Key(''),
+//         name: 'Solaf',
+//         message: 'Hello There!',
+//         date: DateTime.now(),
+//         presence: Presence.None,
+//         messageStatus: Status.Delivered,
+//         profileImage: NetworkImage('https://picsum.photos/200'),
+//         counts: 20,
+//       );
+//     },
+//     itemCount: 20,
+//     separatorBuilder: (BuildContext context, int index) {
+//       return Divider(
+//         height: 0,
+//         thickness: 0.5,
+//         color: Colors.grey[300],
+//         indent: 54 + 16.0,
+//       );
+//     },
+//   ),
+// );

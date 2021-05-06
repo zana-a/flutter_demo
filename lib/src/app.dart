@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/screens/chats/chatsScreen.dart';
@@ -25,15 +26,28 @@ class App extends StatelessWidget {
           backgroundColor: CupertinoColors.white,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.chat_bubble_2),
-              activeIcon: Icon(CupertinoIcons.chat_bubble_2_fill),
+              icon: Padding(
+                padding: EdgeInsets.only(left: 42),
+                child: Icon(CupertinoIcons.chat_bubble_2),
+              ),
+              activeIcon: Padding(
+                padding: EdgeInsets.only(left: 42),
+                child: Icon(CupertinoIcons.chat_bubble_2),
+              ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.explore_outlined),
-              activeIcon: Icon(Icons.explore_rounded),
+              icon: Icon(CupertinoIcons.globe),
+              activeIcon: Icon(CupertinoIcons.globe),
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.settings),
+              icon: Padding(
+                padding: EdgeInsets.only(right: 42),
+                child: Icon(CupertinoIcons.settings),
+              ),
+              activeIcon: Padding(
+                padding: EdgeInsets.only(right: 42),
+                child: Icon(CupertinoIcons.settings_solid),
+              ),
             ),
           ],
         ),
